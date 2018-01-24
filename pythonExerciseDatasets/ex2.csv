@@ -1,0 +1,6 @@
+Loan_ID,Gender,Married,Dependents,Education,ApplicantIncome,LoanAmount,Loan_Amount_Term,Credit_History,Property_Area ,Loan_status
+LP001002,Male,No,0,Graduate,5849,NaN,360,1,Urban,Y
+LP001003,Male,Yes,1,Graduate,4583,128,360,1,Rural,N
+LP001005,Male,Yes,,,3000,,,,,Y
+LP001006,Male,Yes,0,'Not Graduate',2583,120,360,1,Urban,Y
+LP001008,Male,No,0,'Graduate',6000,141,360,1,Urban,Y

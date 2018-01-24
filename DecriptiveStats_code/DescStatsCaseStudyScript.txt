@@ -1,0 +1,46 @@
+m_
+
+setwd("D:/dat1")
+retdf <- read.csv("Retail-Sales-Marketing.csv",sep=",",stringsAsFactors = FALSE)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Explore the structure and data to find out if there are any missing values
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+summary(retdf1)
+
+dim(retdf)
+
+mean(retdf$Revenue,na.rm=TRUE)
+retdf1 <- na.omit(retdf)
+dim(retdf1)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~ Explore the Distribution of Revenue  & find out if any outliers 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+hist(retdf1$Revenue,breaks = 50)
+boxplot(retdf1$Revenue,horizontal =TRUE)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~ Are there any difference in products ordered via Telephone and web ?
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+retdfSub <- subset(retdf1,retdf1$Order.method.type %in% c("Telephone","Web"))
+
+aggregate(x=retdfSub$Revenue,by=list(retdfSub$Order.method.type),FUN=sum)
+
+aggregate(x=retdf1$Revenue,by=list(retdf1$Order.method.type % in c("Telephone","Web"),FUN=sum,na.rm=TRUE)
+
+aggregate(x=retdf$Revenue,by=list(retdf$Order.method.type %in% "Telephone"),FUN=sum,na.rm=TRUE)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~ What is the frequency distribution of product type ?
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+aggregate(x=retdf$Revenue,by=list(retdf$Order.method.type),FUN=sum,na.rm=TRUE)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~What proportion of product line sold by Category (Product type) ?
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+prop.table(table(retdf$Product.type))
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~ What is the average revenue by product line ?
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+unique(retdfSub$Product.line)
+aggregate(x=retdf$Revenue,by=list(retdf$Product.line),FUN=mean,na.rm=TRUE)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

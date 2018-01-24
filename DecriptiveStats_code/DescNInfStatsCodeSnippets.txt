@@ -1,0 +1,399 @@
+m_
+
+##-----------------------------------------------------------------------
+# --------------------------Descriptive Statistics ----------------------
+##-----------------------------------------------------------------------
+
+x <- c(225,170,55,20,20,10,10)
+table(x)
+mean(x)
+sd(x)
+hist(x)
+summary(x)
+sort(x)
+
+# Compute the Quartiles
+# first quartile is the one divides the sample data in such that 25% of the values
+# are less than the quartile and 75% are more than first quartile
+# 3rd quartile is the one divides the sample data in such a way that 25% of the 
+# values are less than the 1st Quartile and 75% are more than 1st quarter.
+
+boxplot(x)
+# 1st quartile is 1/4th from the 1st to last . Here 9 values are there 
+# (1 + (9-1))/4  -- 3rd position
+# 1 + ((9-1) * (3/4)) -- 7th position
+
+
+
+y <- c(55,64,68,74,78,80,84,90,93)
+quantile(y)
+quantile(y,c(0.25,0.75))
+fivenum(y)
+boxplot(y)
+abline(h = min(y),col="Blue" )
+abline(h = max(y),col="Yellow" )
+abline(h = median(y),col="Green" )
+abline(h = quantile(y,c(0.25,0.75)), col="Red")
+abline(h = max(y),col="Yellow")
+
+
+desStat <- function(x) {
+  m <- mean(x)
+  s <- sd(x)
+  r <- max(x) - min(x)
+  md <-  median(x)    
+  uq <- unique(x)
+  print(paste("Mode = ",uq[which.max(tabulate(match(x,uq)))]))
+  return(print(paste("Mean=",m,"Std.Devn=",s, "Range =", r, "Median=",md)))
+}
+
+desStat(x)
+
+Mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+Mode(x)
+
+x <- c(225,170,55,20,20,10)
+
+
+
+# Correlation 
+Age <- c(22,24,25,26,27,28)
+Income <- c(10000,12000,14000,17000,19000,25000)
+cor(Age,Income)
+plot(Age~Income)
+
+Age <- c(22,24,25,26,27,28)
+Income <- c(1000,2000,3000,5000,6900,7100)
+cor(Age,Income)
+plot(Age~Income)
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# dbinom(K,N,P)   K is the number of success, N is the number of trials, 
+# P is the probability of Success
+# Random experiment - Coin tossed 3 times
+# random variable = # of heads
+# H - Heads T- Tail
+# probability of getting head is .5 in each toss
+# Probability of getting head in 0 times
+##############################################################
+# Probability of getting 2 heads in 3 tosses
+dbinom(x=2,size=3,p=.5)
+# Probability of not getting 2 heads in 3 tosses
+1 - pbinom(2, size = 3, prob = 0.5)
+
+
+### Binomial Distribution - Case study 
+
+####  Prediction 
+# probability of 0 customers being late
+dbinom(x=0,size=5,p=.4)
+# Probability of 1 customer being late
+dbinom(x=1,size=5,p=.4)
+sum(dbinom(x=0:1,size=5,p=.4))
+
+# Probability of 2 customer being late
+dbinom(x=2,size=5,p=.4)
+# Probability of 3 customer being late
+dbinom(x=3,size=5,p=.4)
+# Probability of 4 customer being late
+dbinom(x=4,size=5,p=.4)
+
+# Probability of 5 customer being late
+dbinom(x=5,size=5,p=.4)
+
+# Probability of more than 50% of customers being late
+c3 <- dbinom(x=3,size=5,p=.4) 
+# Probability of 4 customer being late
+c4 <- dbinom(x=4,size=5,p=.4)
+# Probability of 5 customer being late
+c5 <- dbinom(x=5,size=5,p=.4)
+
+
+#~~~~~~~~~~~or you can use the below
+sum(dbinom(x=3:5,size=5,prob=.4))
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Slide # 70  Binomial distribution Assignment 
+# Pr(0 success out of 30 trials)
+dbinom(0,size=30,p=.02)
+# Pr(1 success out of 30 trials)
+dbinom(1,size=30,p=.02)
+# Pr(2 successes out of 30 trials)
+dbinom(2,size=30,p=.02)
+# Pr(2 or fewer successes)
+sum(dbinom(0:2,size=30,p=.02))
+# Pr(3 or more  successes)
+1 - sum(dbinom(0:2,size=30,p=.02))
+
+sum(dbinom(3,size=30,p=.02))
+
+1 - sum(dbinom(1:3,size=30,p=.02))
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# slide 61 Binomial distribution example 
+# selling a policy 3 of the 4 prospects
+dbinom(x=3,size=4,p=.2)
+
+dbinom(x=0,size=4,p=.2)
+dbinom(x=1,size=4,p=.2)
+dbinom(x=2,size=4,p=.2)
+dbinom(x=4,size=4,p=.2)
+
+dbinom(x=2:4,size=4,p=.2)
+# selling more than 2 prospects
+sum(dbinom(x=2:4,size=4,p=.2))
+
+
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# dbinom(K,N,P)   K is the number of success, N is the number of trials, 
+# P is the probability of Success
+
+# probability rules for adding & multiplying
+ 
+# Probability of 3 sales in 4 attempts
+dbinom(x=0:4,size=4,prob=c(0.2))
+dbinom(x=1:3,size=4,prob=c(0.8))
+
+# .4096*.1536*.4096
+
+dbinom(x=1,size=4,prob=c(0.2))
+dbinom(x=1,size=4,prob=c(0.8))
+
+dbinom(x=2,size=4,prob=c(0.2))
+dbinom(x=2,size=4,prob=c(0.8))
+
+
+
+dbinom(x=3,size=4,prob=c(0.2))
+dbinom(x=3,size=4,prob=c(0.8))
+
+sum(dbinom(x=1:4,size=4,prob=c(0.2)))
+
+
+
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Probability of making exactly 2 sales 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+dbinom(x=2,size=4,prob=.4)
+
+
+ppois(x=3,lambda=20)
+ppois(3,20)
+
+dbinom(x=3,size=1,prob=.5)
+
+dbinom(x=4,size=5,prob=.85)
+
+pbinom(2,5,.25)
+
+x <- seq(.12,.375,by=.12)
+x
+y <- dbinom(x=0:3,size=3,prob=.5)
+y
+plot(x,y)
+pbinom(q=0:3,size=8,prob=.5)
+
+plo <- dbinom(x=0:3,size=8,prob=.125)
+
+dbinom(x=1,size=225,prob=.45)
+
+x <- 0:3
+plot(x,dbinom(x=0:3,size=3,prob=.5))
+
+# plot(plo,prob,type="h", xlim=c(-1,n+1), ylim=c(0, max(prob)+.05),lwd=2,col="green", ylab="Probability", main="Binomial Distribution")
+# both are same
+sum(dbinom(x=0:3,size=2,prob=1/8))
+pbinom(q=3,size=8,prob=1/8)
+
+
+
+
+
+### Geometric probabilities
+
+
+## Example 1: Y ~ geom(p = 0.75)
+
+# What is P(Y = 4)?
+
+dgeom(4-1, prob = 0.75)
+dgeom(4-1, prob = 0.75)
+
+Assignment 1 
+~~~~~~~~~~~~~~~~
+# obtain the first success occurs on the 2nd attempt
+dgeom(2-1, prob = 0.25)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+### Hypergeometric probabilities
+## Example 3: Y ~ hyper(r=8, N=20, n=6):
+# What is P(Y = 1)?
+# Note (N-r) = 12:
+dhyper(1, 8, 12, 6)
+# dhyper(1, 8, 12, 3)
+dhyper(x=2, m=10, n=30, k=6)
+phyper(q=2, m=10, n=30, k=6)
+qhyper(0.3, m=10, n=30, k=6)
+rhyper(nn=10, m=10, n=30, k=6)
+# dhyper(q,m,n,k)
+dhyper(2, 4, 10, 3) # wrong
+
+# example 
+dhyper(x=4,m=5,n=45,k=10) # correct
+
+# assignment 1 
+# m is number of successes , n = N-m , 20 -17 
+dhyper(x=4,m=17,n=3,k=5) # correct
+dhyper(x=5,m=17,n=3,k=5) # correct
+
+# Assignment 2 
+# n = N-m 10-4
+dhyper(x=2,m=4,n=6,k=3) # correct
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Assignment 3 - Hypergeometric Prob distribution 
+# dhyper(q,m,n,k)
+sum(dhyper(x=0:1,m=4,n=16,k=5)) # correct
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Assignment 4 - Hypergeometric Prob distribution 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# value of k is N-M N=20,m=10 , N-M=10
+dhyper(x=6,m=15,n=5,k=10) # correct
+
+# 0.1354489
+### Poisson probabilities
+#Assignment 1  - slide 78
+dpois(3, lambda = 2)
+
+1- sum(dpois(0:8,6))
+
+## Example 1:  Y ~ Pois(lambda = 2.6)
+
+# What is P(Y = 4)?
+
+dpois(4, lambda = 2.6)
+sum(dpois(0:8,6))
+
+1- sum(dpois(0:8,6))
+
+# value of k is N-M N=20,m=10 , N-M=10
+dhyper(x=17,m=3,n=5,k=5) # correct
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Normal distribution
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+dnorm(80,mean=70,sd=10)
+
+pnorm(90,120,20)
+
+pnorm(90,120,20)
+dnorm(90,mean=120,sd=20)
+# plot(pnorm(90,mean=120,sd=20))
+dnorm(0,mean=0,sd=1)
+
+1 - pnorm(80,mean=70,sd=10)
+1 - pnorm(90,mean=70,sd=10)
+
+1 - pnorm(100,mean=70,sd=10)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+dpois(1,lambda=5)
+dpois(0:3,lambda=5)
+sum(dpois(0:3,lambda=5))
+
+plot(dpois(1:10,lambda=11))
+# other exercise , ref poisson doc 
+1-(dpois(0,lambda=5) + dpois(1,lambda=5)+ dpois(2,lambda=5))
+dpois(0:2,lambda=5)
+# .875348
+# plot(dpois(1:7,lambda=10))
+# p 185 what is the prob having 3 or more breakdowns during a day
+1-(dpois(0,lambda=1.5) + dpois(1,lambda=1.5)+ dpois(2,lambda=1.5))
+# .1912 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# n =5000, np=.5
+1-(dpois(0,lambda=5) + dpois(1,lambda=5))
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Assignment 3 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# obtain number of packets contain zero defects
+x0 <- dpois(0,lambda=.02)
+nodef <- x0 * 100000
+nodef
+# obtain number of packets contain one  defect
+x1 <- dpois(1,lambda=.02) * x0
+px1 <- x1 * 100000
+# obtain number of packets contain two defects
+x2 <- dpois(2,lambda=.02) * x0
+px2 <- x2 * 100000
+
+
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Assigment 4 - What area under the curve is above 80 beats/min
+1 - pnorm(80,mean=70,sd=10)
+1 - pnorm(90,mean=70,sd=10)
+dnorm(80,mean=70,sd=10)
+qnorm(dnorm(80,mean=70,sd=10))
+
+0.02275013*100
+# between 50 & 90 beats per min
+pnorm(50,mean=70,sd=10)
+
+dnorm(50,mean=70,sd=10)
+ 1- dnorm(100,mean=70,sd=10)
+1- dnorm(100,mean=70,sd=10)
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Poisson Distribution - Exercises
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Assignment 5 
+n <- 5000
+p<-0.001 
+lam = np = n * p 
+1 - sum(dpois(0:1,lambda=lam))
+sum(dpois(0:1,lambda=lam))
+
+dpois(3,lambda=2)
+
+dpois(0,lambda=.5)
+1- sum(dpois(0:1,lambda=.5))
+dpois(3,lambda=2)
+
+dpois(0,lambda=25)
+dpois(1,lambda=25)
+
+dpois(0,lambda=3.87)
+dpois(1,lambda=3.87)
+# Number of boxes contains no defective pieces 
+dpois(0,lambda=0.5)
+dpois(1,lambda=0.5)
+# Number of boxes contains no defective pieces  
+# 1 - P(x<==1) = 1 - [P(x=0)+P(x=1)]
+#  7 customers 
+dpois(1:7,lambda=10)
+# more than 10 customers
+dpois(1:10,lambda=11)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Assignment # 6
+# The average number of homes sold by the Olympia Opaline Realty  is 2 homes
+# per day. What is the probability that exactly 3 homes will be sold tomorrow?
+# mu = 2, x = 3,e=2.71828 
+dpois(3,lambda=2)
+ppois(3,2)
+# Thus, the probability of selling 3 homes tomorrow is 0.180 
+
